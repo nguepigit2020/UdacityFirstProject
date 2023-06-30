@@ -45,20 +45,21 @@ def get_pet_labels(image_dir):
     results_dic = dict()
     filename_list = listdir(image_dir)
     for index in range(len(filename_list)):
-        pet_label = ''
-        if filename_list[index] not in results_dic:
-            filename = filename_list[index]
-            ## Sets string to lower case letters
-            low_pet_image = filename.lower()
-            ## Splits lower case string by _ to break into words 
-            word_list_pet_image = low_pet_image.split("_")
-            for word in word_list_pet_image:
-                if word.isalpha():
-                   pet_label += word + " "
-            
-            ##pet_label =' '.join(filename.split('_')[:2],).lower().strip()
-            pet_label = pet_label.strip()
-            results_dic[filename] = [pet_label] 
-        else:
-           print("** Warning: Duplicate files exist in directory:", filename_list[index])
+        if filename_list[index][0] != ".":
+            pet_label = ''
+            if filename_list[index] not in results_dic:
+                filename = filename_list[index]
+                ## Sets string to lower case letters
+                low_pet_image = filename.lower()
+                ## Splits lower case string by _ to break into words 
+                word_list_pet_image = low_pet_image.split("_")
+                for word in word_list_pet_image:
+                    if word.isalpha():
+                       pet_label += word + " "
+
+                ##pet_label =' '.join(filename.split('_')[:2],).lower().strip()
+                pet_label = pet_label.strip()
+                results_dic[filename] = [pet_label] 
+            else:
+               print("** Warning: Duplicate files exist in directory:", filename_list[index])
     return results_dic
